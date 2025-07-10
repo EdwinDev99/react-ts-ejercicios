@@ -5,23 +5,25 @@ import Card from "./Components/Card";
 import List from "./Components/List";
 
 function App() {
-  const list = ["Goku", "Tanjiro", "vegeta"];
-  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState(["goku", "Tanjiro", "Vegeta"]);
 
   const handleSelect = (elemento: string) => {
     console.log(`imprimiendo ${elemento}`);
   };
 
-  const handleclick = () => {
-    setLoading(!loading);
+  const addMinions = () => {
+    setList(() => [...list, "minion"]);
+  };
+
+  const deleteminion = () => {
+    setList((prev) => prev.slice(0, -1));
   };
 
   return (
     <Card title="Hola mundo" text="Esto es el texto">
+      <Button onClick={addMinions}>Agregar</Button>
+      <Button onClick={deleteminion}>Eliminar</Button>
       <List data={list} onSelect={handleSelect} />
-      <Button loading={loading} onClick={handleclick}>
-        hola mundo
-      </Button>
     </Card>
   );
 }

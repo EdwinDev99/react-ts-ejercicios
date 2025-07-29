@@ -3,9 +3,11 @@ import Button from "./Button";
 import { contactSchema, type contactForm } from "../schemas/ContactSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type Props = {};
+type Props = {
+  onFormSubmit: (contact: contactForm) => void;
+};
 
-function FormContact({}: Props) {
+function FormContact({ onFormSubmit }: Props) {
   const {
     register,
     handleSubmit,
@@ -14,12 +16,12 @@ function FormContact({}: Props) {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = (data: contactForm) => {
-    console.log("Formulario enviado:", data);
-  };
+  // const onSubmit = (data: contactForm) => {
+  //   console.log("Formulario enviado:", data);
+  // };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onFormSubmit)}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Name

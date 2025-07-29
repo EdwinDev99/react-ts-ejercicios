@@ -13,7 +13,11 @@ function Cms({}: Props) {
       ...contact,
       id: Math.random().toString(),
     };
-    setContacts([newContact, ...contacts]);
+    setContacts([...contacts, newContact]);
+  };
+
+  const deleteContact = (id: string) => {
+    setContacts(contacts.filter((c) => c.id != id));
   };
   console.log(contacts);
 
@@ -26,7 +30,7 @@ function Cms({}: Props) {
       </div>
       <div className="row">
         <div className="col">
-          <ContactList constacts={contacts} />
+          <ContactList constacts={contacts} onClick={deleteContact} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import Cms from "./components/Cms";
+import Cms from "./assets/components/Cms";
 
 function App() {
   return (

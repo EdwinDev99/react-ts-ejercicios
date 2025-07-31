@@ -1,5 +1,11 @@
+import Loyout from "./components/Loyout";
+
 function App() {
-  return <div>hola</div>;
+  return (
+    <div>
+      <Loyout />
+    </div>
+  );
 }
 
 export default App;

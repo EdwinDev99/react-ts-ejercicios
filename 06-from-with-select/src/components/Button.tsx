@@ -1,12 +1,16 @@
 import type { ReactNode } from "react";
 
+type buttontype = "button" | "submit";
+
 type Props = {
   children: ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  type?: buttontype;
 };
 
-function Button({ children }: Props) {
+function Button({ children, onClick, type = "submit" }: Props) {
   return (
-    <button type="submit" className="btn btn-primary">
+    <button onClick={onClick} type={type} className="btn btn-primary">
       {children}
     </button>
   );

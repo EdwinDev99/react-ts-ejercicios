@@ -29,7 +29,10 @@ function ProdusctsForm({ onSubmit }: Props) {
           options={productTypeOptions}
           label="Category"
         />
-        <Button>Enviar</Button>
+        <Button type="submit">Enviar</Button>
+        <Button type="button" onClick={() => methos.reset()}>
+          Limpiar
+        </Button>
       </form>
     </FormProvider>
   );

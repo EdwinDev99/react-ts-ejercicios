@@ -22,6 +22,7 @@ function ListProducts({ products }: Props) {
               {/* <th scope="row">{index + 1}</th> */}
               <td>{p.product}</td>
               <td>{p.contry}</td>
+              <td>{p.category}</td>
             </tr>
           ))}
         </tbody>

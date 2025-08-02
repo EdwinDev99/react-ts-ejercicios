@@ -1,8 +1,13 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Button from "./Button";
-import { productShema, type Product } from "../schemas/productShema";
+import {
+  productShema,
+  productTypeOptions,
+  type Product,
+} from "../schemas/productShema";
 import Input from "./Input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Select from "./Select";
 
 type Props = {
   onSubmit: (product: Product) => void;
@@ -17,19 +22,13 @@ function ProdusctsForm({ onSubmit }: Props) {
       <form onSubmit={methos.handleSubmit(onSubmit)}>
         <Input name="product">Product</Input>
         <Input name="contry">Contry</Input>
-        <div>
-          <label htmlFor="category" className="form-label">
-            Category
-          </label>
-          <select
-            className="form-select mb-5"
-            aria-label="Default select example"
-          >
-            <option>Open this select menu</option>
-            <option value="1">One</option>
-          </select>
-        </div>
 
+        <Select
+          name="category"
+          defaultMessage="--Selecciona tipo--"
+          options={productTypeOptions}
+          label="Category"
+        />
         <Button>Enviar</Button>
       </form>
     </FormProvider>

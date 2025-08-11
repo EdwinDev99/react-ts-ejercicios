@@ -1,7 +1,13 @@
-import useUser from "./hooks/useUser";
+import useFetchData from "./hooks/useFetchData";
+
+type User = {
+  id: string;
+  name: string;
+};
 
 function App() {
-  const { loading, error, users } = useUser();
+  const url = "https://jsonplaceholder.typicode.com/users";
+  const { loading, error, data: users } = useFetchData<User>(url);
 
   if (loading) {
     return <p>Cargando...</p>;

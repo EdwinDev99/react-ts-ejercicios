@@ -66,5 +66,24 @@ export default function useHttpData<T extends ID>(url: string) {
     }
   };
 
-  return { data, loading, error, addData, deleteData };
+  const updateData = async (updateElement: T) => {
+    const initialData = [...data];
+    setData(
+      data.map((element) =>
+        element.id == updateElement.id ? updateElement : element
+      )
+    );
+    try {
+      const response = await fetch(`${url}/${updateElement.id}`, {
+        method: "PUT",
+      });
+      if (!response.ok) {
+        setData(initialData);
+        throw new Error(`${response.status}`);
+      }
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+  return { data, loading, error, addData, deleteData, updateData };
 }

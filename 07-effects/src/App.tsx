@@ -1,7 +1,7 @@
 import useHttpData from "./hooks/useHttpData";
 
 type User = {
-  id?: string;
+  id?: string | number;
   name: string;
 };
 
@@ -11,8 +11,9 @@ function App() {
     loading,
     error,
     data: users,
-    addData: addUser,
-    deleteData: deleteUser,
+    // addData: addUser,
+    // deleteData: deleteUser,
+    updateData: updateUser,
   } = useHttpData<User>(url);
 
   if (loading) {
@@ -25,7 +26,9 @@ function App() {
 
   return (
     <ul>
-      <button onClick={() => deleteUser(1)}> eliminar</button>
+      <button onClick={() => updateUser({ id: 1, name: "chanchito feliz" })}>
+        enviar
+      </button>
       {users.map((u) => (
         <li key={u.id}>{u.name}</li>
       ))}

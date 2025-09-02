@@ -1,9 +1,11 @@
-type Props = {
-  amount: number;
-};
+import useTodos from "../hooks/useTodos";
 
-function Dashboard({ amount }: Props) {
-  return <div>{amount}</div>;
+type Props = {};
+
+function Dashboard({}: Props) {
+  console.log("dashboard");
+  const { todos } = useTodos();
+  return <div>{todos.length}</div>;
 }
 
 export default Dashboard;

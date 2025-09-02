@@ -1,16 +1,13 @@
-import type { Todo } from "../types/Todo";
 import TodoList from "./TodoList";
 
-type Props = {
-  todos: Todo[];
-  addTodo: (todo: Todo) => void;
-};
+type Props = {};
 
-function MainContent({ todos, addTodo }: Props) {
+function MainContent({}: Props) {
+  console.log("mainContect");
   return (
     <div>
       <h2>Todos</h2>
-      <TodoList todos={todos} addTodo={addTodo} />
+      <TodoList />
     </div>
   );
 }

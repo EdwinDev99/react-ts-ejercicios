@@ -1,12 +1,10 @@
-import React from "react";
-import type { Todo } from "../types/Todo";
+import useTodos from "../hooks/useTodos";
 
-type Props = {
-  todos: Todo[];
-  addTodo: (todo: Todo) => void;
-};
+type Props = {};
 
-function TodoList({ todos, addTodo }: Props) {
+function TodoList({}: Props) {
+  console.log("Todolist ");
+  const { todos, addTodo } = useTodos();
   return (
     <>
       <button

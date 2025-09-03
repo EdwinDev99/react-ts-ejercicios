@@ -1,11 +1,22 @@
 import useTodos from "../hooks/useTodos";
+import useUser from "../hooks/useUser";
 
 type Props = {};
 
 function Dashboard({}: Props) {
   console.log("dashboard");
   const { todos } = useTodos();
-  return <div>{todos.length}</div>;
+  const { user, toggleLogin } = useUser();
+
+  return (
+    <>
+      <div>
+        {user.name}
+        {todos.length}
+      </div>
+      <button onClick={() => toggleLogin()}>login</button>
+    </>
+  );
 }
 
 export default Dashboard;

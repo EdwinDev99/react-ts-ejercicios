@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import type { Todo } from "./TodosProvider";
+
+type Todo = {
+  id: number;
+  name: string;
+};
 
 type TodosStore = {
   todos: Todo[]; // corregido: debe ser "todos"

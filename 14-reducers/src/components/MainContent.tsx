@@ -1,4 +1,4 @@
-import useTodos from "../hooks/useTodos";
+import { useTodos } from "../todos";
 
 type Props = {};
 

@@ -1,5 +1,5 @@
 import MainContent from "./components/MainContent";
-import TodosProvider from "./providers/TodosProvider";
+import { TodosProvider } from "./todos";
 
 function App() {
   return (

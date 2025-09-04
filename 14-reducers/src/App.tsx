@@ -1,18 +1,35 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+type Action = {
+  type: string;
+};
+
+const reducer = (contador: number, action: Action) => {
+  switch (action.type) {
+    case "INCREMENT":
+      return contador + 1;
+    case "DECRESE":
+      return contador - 1;
+    case "RESET":
+      return 0;
+  }
+
+  return contador;
+};
 
 function App() {
-  const [contador, setContador] = useState(0);
+  const [contador, dispatch] = useReducer(reducer, 0);
 
   const sumar = () => {
-    setContador(contador + 1);
+    dispatch({ type: "INCREMENT" });
   };
 
   const restar = () => {
-    setContador(contador - 1);
+    dispatch({ type: "DECRESE" });
   };
 
   const reset = () => {
-    setContador(0);
+    dispatch({ type: "RESET" });
   };
 
   return (

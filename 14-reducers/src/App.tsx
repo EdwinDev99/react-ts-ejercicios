@@ -1,43 +1,60 @@
 import { useReducer } from "react";
 
-type Action = {
-  type: string;
+type Todo = {
+  id: number;
+  name: string;
 };
 
-const reducer = (contador: number, action: Action) => {
+type AddAction = {
+  type: "ADD";
+  todo: Todo;
+};
+
+type DeleteAction = {
+  type: "DELETE";
+  todoId: number;
+};
+
+type Action = AddAction | DeleteAction;
+
+const reducer = (todos: Todo[], action: Action) => {
   switch (action.type) {
-    case "INCREMENT":
-      return contador + 1;
-    case "DECRESE":
-      return contador - 1;
-    case "RESET":
-      return 0;
+    case "ADD":
+      return [action.todo, ...todos];
+    case "DELETE":
+      return todos.filter((t) => t.id !== action.todoId);
   }
 
-  return contador;
+  return todos;
 };
 
 function App() {
-  const [contador, dispatch] = useReducer(reducer, 0);
-
-  const sumar = () => {
-    dispatch({ type: "INCREMENT" });
-  };
-
-  const restar = () => {
-    dispatch({ type: "DECRESE" });
-  };
-
-  const reset = () => {
-    dispatch({ type: "RESET" });
-  };
+  const [todos, dispatch] = useReducer(reducer, []);
 
   return (
     <>
-      <h1>Hola mundo{contador}</h1>
-      <button onClick={sumar}>Incrementar</button>
-      <button onClick={restar}>Reducir</button>
-      <button onClick={reset}>Reset</button>
+      <h1>Hola mundo</h1>
+      <button
+        onClick={() => {
+          const id = Math.random();
+          dispatch({
+            type: "ADD",
+            todo: { id, name: `hola mundo ${id}` },
+          });
+        }}
+      >
+        agregar
+      </button>
+      <ul>
+        {todos.map((t) => (
+          <li key={t.id}>
+            <button onClick={() => dispatch({ type: "DELETE", todoId: t.id })}>
+              Eliminar
+            </button>
+            {t.name}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

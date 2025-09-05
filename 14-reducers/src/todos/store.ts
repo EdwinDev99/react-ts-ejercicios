@@ -9,10 +9,12 @@ type TodosStore = {
   todos: Todo[]; // corregido: debe ser "todos"
   add: (todo: Todo) => void;
   destroy: (id: number) => void;
+  total: number;
 };
 
 const useTodosStore = create<TodosStore>((set) => ({
   todos: [],
+  total: 0,
   add: (todo) =>
     set((state) => ({
       todos: [...state.todos, todo], // agregar al array

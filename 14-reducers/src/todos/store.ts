@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 type Todo = {
   id: number;
@@ -25,4 +26,7 @@ const useTodosStore = create<TodosStore>((set) => ({
     })),
 }));
 
+if (process.env.NODE_ENV == "development") {
+  mountStoreDevtool("Todos Store", useTodosStore);
+}
 export default useTodosStore;

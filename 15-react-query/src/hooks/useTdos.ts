@@ -7,16 +7,25 @@ type Todo = {
   userId: number;
 };
 
-const queryTodos = (): Promise<Todo[]> =>
-  fetch("https://jsonplaceholder.typicode.com/todos").then((response) => {
+const queryTodos = (userId: number | undefined): Promise<Todo[]> => {
+  const url = "https://jsonplaceholder.typicode.com/todos?";
+  const queryParams = userId
+    ? new URLSearchParams({
+        userId: String(userId),
+      })
+    : "";
+
+  return fetch(url + queryParams).then((response) => {
     if (!response.ok) throw Error(`Error${response.status}`);
     return response.json();
   });
+};
 
-function useTodos() {
+function useTodos(userId: number | undefined) {
   return useQuery({
-    queryKey: ["todos"],
-    queryFn: queryTodos,
+    //users/2/todos
+    queryKey: userId ? ["users", userId, "todos"] : ["todos"],
+    queryFn: () => queryTodos(userId),
   });
 }
 

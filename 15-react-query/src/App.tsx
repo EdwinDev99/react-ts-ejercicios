@@ -1,31 +1,29 @@
-import { useState } from "react";
 import useTodos from "./hooks/useTdos";
 
 export default function App() {
   const pageSize = 15;
-  const [page, setPage] = useState(1);
-  const { data, isLoading, error, isPlaceholderData } = useTodos({
-    page,
-    pageSize,
-  });
+
+  const { data, isLoading, error, fetchNextPage, isFetchingNextPage } =
+    useTodos(pageSize);
 
   if (error) return <h2>{error.message}:(</h2>;
   if (isLoading) return <h2>Cargando.....</h2>;
+  console.log(data);
+  const todos = data?.pages.flat();
 
   return (
     <>
       <h2>Todos</h2>
 
       <ul>
-        {data?.map((todo) => (
+        {todos?.map((todo) => (
           <li>{todo.title}</li>
         ))}
       </ul>
-      <button disabled={page == 1} onClick={() => setPage(page - 1)}>
-        {"<<"}
+
+      <button disabled={isFetchingNextPage} onClick={() => fetchNextPage()}>
+        {isFetchingNextPage ? "cargando" : "cargar mas"}
       </button>
-      <button onClick={() => setPage(page + 1)}>{">>"}</button>
-      {isPlaceholderData && <span>Cargando...</span>}
     </>
   );
 }

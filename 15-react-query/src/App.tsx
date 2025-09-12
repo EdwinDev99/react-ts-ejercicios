@@ -14,7 +14,7 @@ export default function App() {
   const bodyref = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationFn: (post: Post) =>
       axios
         .post<Post>(
@@ -27,6 +27,10 @@ export default function App() {
         savePost,
         ...oldPosts,
       ]);
+      if (titleRef.current?.value && bodyref.current?.value) {
+        titleRef.current.value = "";
+        bodyref.current.value = "";
+      }
     },
   });
 
@@ -61,7 +65,10 @@ export default function App() {
           <input ref={bodyref} type="text" placeholder="body" />
         </div>
         <div>
-          <button>enviar</button>
+          <button disabled={isPending}>
+            {isPending ? "creando... " : "enviar"}
+          </button>
+          {error && <span>{error.message}</span>}
         </div>
       </form>
       {isLoading && <p>Cargando...</p>}

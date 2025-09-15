@@ -1,49 +1,17 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRef } from "react";
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-};
+import type { Post } from "./types";
+import useCreatePost from "./hooks/useCreatePost";
+import { useQuery } from "@tanstack/react-query";
 
 export default function App() {
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyref = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (post: Post) =>
-      axios
-        .post<Post>(
-          "https://jsonplaceholder.typicode.com/aposts?_limit=10",
-          post
-        )
-        .then((response) => response.data),
-    onMutate: (newPost) => {
-      const previousPosts = queryClient.getQueryData<Post[]>(["posts"]);
-
-      queryClient.setQueryData<Post[]>(["posts"], (oldPosts = []) => [
-        newPost,
-        ...oldPosts,
-      ]);
-
-      if (titleRef.current?.value && bodyref.current?.value) {
-        titleRef.current.value = "";
-        bodyref.current.value = "";
-      }
-      return previousPosts;
-    },
-    onSuccess: (savedPost, newPost) => {
-      queryClient.setQueryData<Post[]>(["posts"], (posts = []) =>
-        posts.map((post) => (post.id === newPost.id ? savedPost : post))
-      );
-    },
-    onError: (error, newPost, ctx) => {
-      queryClient.setQueryData(["posts"], ctx);
-    },
+  const { mutate, isPending, error } = useCreatePost(() => {
+    if (titleRef.current?.value && bodyref.current?.value) {
+      titleRef.current.value = "";
+      bodyref.current.value = "";
+    }
   });
 
   const { data, isLoading } = useQuery({

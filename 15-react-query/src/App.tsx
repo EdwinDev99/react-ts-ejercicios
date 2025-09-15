@@ -18,19 +18,31 @@ export default function App() {
     mutationFn: (post: Post) =>
       axios
         .post<Post>(
-          "https://jsonplaceholder.typicode.com/posts?_limit=10",
+          "https://jsonplaceholder.typicode.com/aposts?_limit=10",
           post
         )
         .then((response) => response.data),
-    onSuccess: (savePost, newPost) => {
-      queryClient.setQueriesData<Post[]>(["posts"], (oldPosts = []) => [
-        savePost,
+    onMutate: (newPost) => {
+      const previousPosts = queryClient.getQueryData<Post[]>(["posts"]);
+
+      queryClient.setQueryData<Post[]>(["posts"], (oldPosts = []) => [
+        newPost,
         ...oldPosts,
       ]);
+
       if (titleRef.current?.value && bodyref.current?.value) {
         titleRef.current.value = "";
         bodyref.current.value = "";
       }
+      return previousPosts;
+    },
+    onSuccess: (savedPost, newPost) => {
+      queryClient.setQueryData<Post[]>(["posts"], (posts = []) =>
+        posts.map((post) => (post.id === newPost.id ? savedPost : post))
+      );
+    },
+    onError: (error, newPost, ctx) => {
+      queryClient.setQueryData(["posts"], ctx);
     },
   });
 

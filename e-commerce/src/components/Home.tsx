@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import heroBanner from "../assets/hero-banner.jpg";
+import Card from "./Card";
 
 function Home() {
   const navigate = useNavigate();
   return (
     <>
-      <section className="w-full h-[80vh] relative overflow-hidden">
+      <section className="w-full h-[80vh] relative overflow-hidden mb-6">
         <img
           src={heroBanner}
           alt="home"
@@ -22,6 +23,19 @@ function Home() {
           >
             Explorar
           </button>
+        </div>
+      </section>
+      <section>
+        <span className="text-2xl p-9">Seleccion</span>
+        <div className="flex items-center justify-between p-9">
+          <h3 className="text-5xl">Productos Destacados</h3>
+          <span className="p-9">Ver Todo</span>
+        </div>
+        <div className="flex justify-around flex-wrap gap-4">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
         </div>
       </section>
     </>

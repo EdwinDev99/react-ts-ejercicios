@@ -25,7 +25,7 @@ function Home() {
           </button>
         </div>
       </section>
-      <section>
+      <section className="mb-44">
         <span className="text-2xl p-9">Seleccion</span>
         <div className="flex items-center justify-between p-9">
           <h3 className="text-5xl">Productos Destacados</h3>

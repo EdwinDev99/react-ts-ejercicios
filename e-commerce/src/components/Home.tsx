@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import heroBanner from "../assets/hero-banner.jpg";
 import Card from "./Card";
+import Footer from "./Footer";
 
 function Home() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function Home() {
           <Card />
         </div>
       </section>
+      <Footer />
     </>
   );
 }

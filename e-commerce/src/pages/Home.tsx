@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import heroBanner from "../assets/hero-banner.jpg";
-import Card from "./Card";
-import Footer from "./Footer";
+import Card from "../components/Card";
+import Footer from "../components/Footer";
+import { useContext } from "react";
+import ProductsContext from "../context/ProductsContext";
 
 function Home() {
+  const { products } = useContext(ProductsContext);
   const navigate = useNavigate();
   return (
     <>
@@ -33,10 +36,9 @@ function Home() {
           <span className="p-9">Ver Todo</span>
         </div>
         <div className="flex justify-around flex-wrap gap-4">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {products.map((p) => (
+            <Card key={p.id} product={p} />
+          ))}
         </div>
       </section>
       <Footer />

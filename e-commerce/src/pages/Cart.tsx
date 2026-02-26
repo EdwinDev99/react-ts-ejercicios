@@ -1,13 +1,11 @@
 import { FiShoppingBag } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import { useContext } from "react";
-import CartContext from "../context/CartContext";
+import UseCart from "../hooks/useCart";
 
 function Cart() {
   const navigate = useNavigate();
-  const { cart, sumProduct, resProduct, removeProduct, totalPrice } =
-    useContext(CartContext);
+  const { cart, sumProduct, resProduct, removeProduct, totalPrice } = UseCart();
 
   if (cart.length === 0) {
     return (

@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 import heroBanner from "../assets/hero-banner.jpg";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
-import { useContext } from "react";
-import ProductsContext from "../context/ProductsContext";
+import UseProduct from "../hooks/useProducts";
 
 function Home() {
-  const { products } = useContext(ProductsContext);
+  const { products } = UseProduct();
   const navigate = useNavigate();
   return (
     <>

@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
-import ProductsContext from "../context/ProductsContext";
+import UseProduct from "../hooks/useProducts";
 
 function Store() {
-  const { products } = useContext(ProductsContext);
+  const { products } = UseProduct();
   return (
     <div className="flex justify-center items-center p-30">
       <main className="flex flex-col ">

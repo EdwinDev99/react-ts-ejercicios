@@ -1,11 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
-import { useContext } from "react";
-import CartContext from "../context/CartContext";
+import UseCart from "../hooks/useCart";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { totalItems } = useContext(CartContext);
+  const { totalItems } = UseCart();
 
   return (
     <header className="fixed top-0 left-0 w-full h-24 bg-amber-50 shadow z-50 flex justify-around items-center p-5">
